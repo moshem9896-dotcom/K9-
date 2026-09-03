@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K9 Academy - מדריך הכשרה והסמכה</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #0b1329;       /* Tactical Navy Dark */
+            --secondary-color: #162238;     /* Dark Slate Accent */
+            --accent-color: #f5c518;        /* K9 Gold Badge Color */
+            --accent-glow: rgba(245, 197, 24, 0.35);
+            --accent-hover: #ffd700;
+            --text-main: #f1f5f9;           /* High readability light slate */
+            --text-muted: #94a3b8;          /* Muted slate text */
+            --bg-main: #070b19;             /* Ultra dark background */
+            --bg-card: rgba(18, 28, 49, 0.7); /* Glassmorphism dark card */
+            --bg-card-hover: rgba(26, 40, 70, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(245, 197, 24, 0.25);
+            
+            --danger: #ef4444;
+            --danger-bg: rgba(239, 68, 68, 0.12);
+            --warning: #f59e0b;
+            --warning-bg: rgba(245, 158, 11, 0.12);
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.12);
+            --info: #06b6d4;
+            --info-bg: rgba(6, 182, 212, 0.12);
+            
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(26, 54, 93, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                linear-gradient(180deg, #070b19 0%, #040711 100%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #040711;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color);
+        }
+
+        .sidebar {
+            width: 290px;
+            background: rgba(11, 19, 41, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: #fff;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2.5rem 0 2rem 0;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+            font-size: 1.6rem;
+            font-weight: 900;
+            padding: 0 1.5rem;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(245, 197, 24, 0.2);
+            padding-bottom: 1.2rem;
+            text-shadow: 0 0 15px rgba(245, 197, 24, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sidebar h2::before {
+            content: '🐕';
+            font-size: 1.4rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0 0.8rem;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 0.85rem 1.2rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+
+        .sidebar ul li a:hover {
+            background: rgba(245, 197, 24, 0.1);
+            color: #fff;
+            border-color: rgba(245, 197, 24, 0.3);
+            transform: translateX(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .main-content {
+            margin-right: 290px;
+            flex: 1;
+            padding: 3rem;
+            max-width: 1250px;
+        }
+
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            display: inline-block;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 0.8rem;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 24px;
+            background: var(--accent-color);
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            color: var(--accent-color);
+            margin-top: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: var(--glass-border);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        section:hover {
+            border-color: rgba(245, 197, 24, 0.2);
+        }
+
+        .cover-section {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(11, 28, 44, 0.95) 0%, rgba(15, 34, 64, 0.85) 100%);
+            border: 1px solid rgba(245, 197, 24, 0.3);
+            color: white;
+            padding: 5rem 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 3.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(245, 197, 24, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 197, 24, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cover-section h1 {
+            color: white;
+            border-bottom: 3px solid var(--accent-color);
+            font-size: 3.5rem;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .cover-section p {
+            font-size: 1.35rem;
+            color: #cbd5e1;
+            font-weight: 300;
+            margin-top: 1rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: rgba(11, 19, 35, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            transition: var(--transition);
+            border-top: 4px solid var(--secondary-color);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(245, 197, 24, 0.15);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+            border-color: rgba(245, 197, 24, 0.3);
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 0.7rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card ul {
+            padding-right: 1.2rem;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+
+        .card ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .card ul li strong {
+            color: #fff;
+        }
+
+        .btn-interview {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, #f5c518 0%, #d4af37 100%);
+            color: #0b1329;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            margin-top: 1.8rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(245, 197, 24, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-interview:hover {
+            background: linear-gradient(135deg, #ffd700 0%, #f5c518 100%);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(245, 197, 24, 0.5);
+            color: #000;
+        }
+
+        .question-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-right: 4px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 1.2rem 1.6rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .question-card:hover {
+            background: rgba(22, 34, 58, 0.8);
+            border-color: rgba(245, 197, 24, 0.4);
+            transform: translateX(-4px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #f1f5f9;
+            font-size: 1.15rem;
+            gap: 1rem;
+        }
+
+        .question-num {
+            background: rgba(245, 197, 24, 0.15);
+            color: var(--accent-color);
+            border: 1px solid rgba(245, 197, 24, 0.3);
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .alert {
+            padding: 1.2rem 1.6rem;
+            border-radius: var(--border-radius);
+            margin: 1.8rem 0;
+            border-right: 5px solid;
+            font-size: 1.05rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .alert-warning {
+            background-color: var(--warning-bg);
+            color: #fde047;
+            border-right-color: var(--warning);
+            border-top: 1px solid rgba(245, 158, 11, 0.2);
+            border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+            border-left: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .alert-danger {
+            background-color: var(--danger-bg);
+            color: #fca5a5;
+            border-right-color: var(--danger);
+            border-top: 1px solid rgba(239, 68, 68, 0.2);
+            border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+            border-left: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .alert-info {
+            background-color: var(--info-bg);
+            color: #7dd3fc;
+            border-right-color: var(--info);
+            border-top: 1px solid rgba(6, 182, 212, 0.2);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+            border-left: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4em 0.8em;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 6px;
+            color: #fff;
+            margin-left: 0.5rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .badge-pass { 
+            background-color: rgba(16, 185, 129, 0.2); 
+            color: #34d399; 
+            border: 1px solid rgba(16, 185, 129, 0.4); 
+        }
+        .badge-fail { 
+            background-color: rgba(239, 68, 68, 0.2); 
+            color: #f87171; 
+            border: 1px solid rgba(239, 68, 68, 0.4); 
+        }
+        .badge-warning { 
+            background-color: rgba(245, 158, 11, 0.2); 
+            color: #fbbf24; 
+            border: 1px solid rgba(245, 158, 11, 0.4); 
+        }
+        .badge-pending { 
+            background-color: rgba(148, 163, 184, 0.2); 
+            color: #cbd5e1; 
+            border: 1px solid rgba(148, 163, 184, 0.4); 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.8rem 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        table th, table td {
+            padding: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: right;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #162238 0%, #0d1627 100%);
+            color: var(--accent-color);
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(245, 197, 24, 0.3);
+        }
+
+        table tr {
+            background-color: rgba(11, 19, 35, 0.5);
+            transition: var(--transition);
+        }
+
+        table tr:nth-child(even) {
+            background-color: rgba(15, 25, 45, 0.7);
+        }
+
+        table tr:hover {
+            background-color: rgba(26, 42, 72, 0.6);
+        }
+
+        .qr-section {
+            background: rgba(11, 19, 35, 0.85);
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.15);
+        }
+        
+        .qr-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .cmd {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(245, 197, 24, 0.12);
+            color: #fde047;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+            border: 1px solid rgba(245, 197, 24, 0.25);
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1.5rem 0;
+                border-left: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .main-content {
+                margin-right: 0;
+                padding: 1.5rem;
+            }
+            .qr-grid {
+                grid-template-columns: 1fr;
+            }
+            .cover-section h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar">
+        <h2>K9 ACADEMY</h2>
+        <ul>
+            <li><a href="#cover">ראשי</a></li>
+            <li><a href="#intro">מבוא ותפקיד ה-Handler</a></li>
+            <li><a href="#staff">מבנה כוח האדם (Staff)</a></li>
+            <li><a href="#day1">DAY 1 - ראיונות ונהלים</a></li>
+            <li><a href="#day2">DAY 2 - שיעור תיאורטי</a></li>
+            <li><a href="#day3">DAY 3 - אימון מעשי</a></li>
+            <li><a href="#day4">DAY 4 - מבחן מסכם (Master)</a></li>
+            <li><a href="#requirements">דרישות Master והסמכה</a></li>
+            <li><a href="#quick-reference">נספח - Quick Reference</a></li>
+            <li><a href="#interview-repository">📋 מאגר שאלות הראיון</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Cover -->
+        <div id="cover" class="cover-section">
+            <h1>K9 ACADEMY</h1>
+            <p>מדריך הכשרה והסמכה רשמי ליחידת K9</p>
+            <div style="margin-top: 2rem; color: var(--accent-color);">
+                <strong>Los Santos Police Department</strong><br>
+                GTA RP Official Manual
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <section id="intro">
+            <h2>מבוא ליחידה ולתפקיד ה-Handler</h2>
+            <p>ברוכים הבאים לאקדמיית ה-K9. יחידת הכלבנים היא כלי טקטי מתקדם, הדורש מהנוהגים (Handlers) אחריות אישית גבוהה, שיקול דעת, והיכרות מעמיקה עם הנהלים והיכולות המבצעיות של הכלב.</p>
+            
+            <h3>ניהול ומדדי ה-K9 (Stats)</h3>
+            <p>תפקיד ה-Handler כולל דאגה רציפה למצבו הפיזי של ה-K9 ולרמת מוכנותו המבצעית. הכלב מבוסס על מספר מדדים מרכזיים שעל ה-Handler לתחזק:</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>מדדי בריאות ורווחה</h4>
+                    <ul>
+                        <li><strong>Health (בריאות):</strong> שמירה על שלמותו הפיזית של הכלב.</li>
+                        <li><strong>Hunger (רעב):</strong> הזנה סדירה של ה-K9.</li>
+                        <li><strong>Thirst (צמא):</strong> אספקת מים שוטפת.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>מדדי כושר ויכולות מבצעיות</h4>
+                    <ul>
+                        <li><strong>Stamina (סיבולת):</strong> יכולת הריצה וההתמדה של הכלב.</li>
+                        <li><strong>Attack (תקיפה):</strong> עוצמת ויעילות התקיפה.</li>
+                        <li><strong>Defense (הגנה):</strong> עמידות הכלב בפני פגיעות.</li>
+                        <li><strong>Smell (חוש ריח):</strong> יכולת האיתור והחיפוש של פריטים וחשודים.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Staff Structure -->
+        <section id="staff">
+            <h2>מבנה כוח האדם (K9 Staff)</h2>
+            <div class="alert alert-info">
+                <strong>שים לב למועמד/מדריך:</strong> סגל ה-K9 הוא מצומצם ומוגדר מראש. אין מדריכים אישיים לכל מועמד, ועל המועמדים להפגין עצמאות, קשב בשיעורים הקבוצתיים, ונכונות לסייע זה לזה (Decoys) במהלך התרגולים.
+            </div>
+            
+            <p>הסגל המנהל את היחידה וההכשרות מורכב מ-3 אנשי צוות בלבד:</p>
+            <ol style="margin-right: 2rem; font-size: 1.2rem;">
+                <li><strong>Head of K9 / K9 Director:</strong> מנהל היחידה, הסמכות המקצועית והפיקודית העליונה.</li>
+                <li><strong>K9 Assistant:</strong> עוזר מנהל היחידה ומדריך מוסמך.</li>
+                <li><strong>K9 Assistant:</strong> עוזר מנהל היחידה ומדריך מוסמך.</li>
+            </ol>
+            <p style="margin-top: 1rem;">במהלך תרגילים מעשיים (Day 3 ו-Day 4), המועמדים עצמם ישמשו כ-Decoys (חשודים/מטרות) עבור חבריהם, בהנחיית הסגל.</p>
+        </section>
+
+        <!-- DAY 1 -->
+        <section id="day1">
+            <h2>DAY 1 — Interviews & Selection</h2>
+            <p>היום הראשון מוקדש לסינון וקבלת המועמדים המתאימים ביותר ליחידה, וכן ליישור קו משמעתי בנוגע לחוקי הברזל של היחידה.</p>
+
+            <h3>שלב א': ראיונות וסינון</h3>
+            <p>הראיונות מנוהלים על ידי 3 אנשי הסגל באופן מרוכז. המטרה היא לבדוק התאמה לאופי היחידה ולא רק ידע טכני.</p>
+            <ul>
+                <li><strong>מה מחפשים:</strong> שיקול דעת, הבנת תפקיד ה-K9 ככלי מסייע ולא רק כנשק, אחריות אישית, יכולת התמודדות עם מצבי לחץ (שאלות מצבים).</li>
+                <li><strong>תוצאות אפשריות:</strong> <span class="badge badge-pass">Passed</span>, <span class="badge badge-fail">Failed</span>, <span class="badge badge-pending">Re-Interview</span> (במקרים חריגים).</li>
+                <li>רק מי שעובר את הראיון ממשיך לשלב ב' ול-Day 2.</li>
+            </ul>
+
+            <!-- כפתור מעבר למאגר השאלות -->
+            <div style="text-align: right;">
+                <a href="#interview-repository" class="btn-interview">📋 מעבר לשאלות הראיון</a>
+            </div>
+
+            <h3 style="margin-top: 2rem;">שלב ב': K9 Rules & Regulations (חוקי היחידה)</h3>
+            <p>על המועמדים שהתקבלו להכיר את 6 חוקי הברזל של היחידה. הפרה של נהלים אלו עלולה להוביל להליך משמעתי והדחה.</p>
+            
+            <div class="cards-grid">
+                <div class="card" style="border-top-color: var(--danger);">
+                    <h4>1. Reasonable Suspicion</h4>
+                    <p>אין להשתמש ב-K9 לצורך חיפוש אדם, רכב או אזור ללא בסיס RP/חוקי מתאים (חשד סביר). הפרה שווה לחיפוש בלתי חוקי.</p>
+                </div>
+                <div class="card" style="border-top-color: var(--danger);">
+                    <h4>2. Abandoning the K9</h4>
+                    <p>איסור מוחלט על נטישת ה-K9. אין להשאירו מאחור בזירה או להשאירו ללא השגחה בצורה שאינה מוצדקת מבצעית.</p>
+                </div>
+                <div class="card" style="border-top-color: var(--danger);">
+                    <h4>3. Unjustified Use of Force</h4>
+                    <p>אין להשתמש בפקודות Attack או Tackle ללא הצדקה חוקית ו-RP מתאים.</p>
+                </div>
+                <div class="card" style="border-top-color: var(--warning);">
+                    <h4>4. Tackle Cooldown</h4>
+                    <p>קיימת המתנת חובה (Cooldown) של <strong>לפחות 2 דקות</strong> בין ביצוע Tackle אחד לבא אחריו.</p>
+                </div>
+                <div class="card" style="border-top-color: var(--info);">
+                    <h4>5. No Petting</h4>
+                    <p>אין לאפשר לאזרחים או שוטרים שאינם נוהגים ללטף את ה-K9 המשטרתי בעת מילוי תפקידו.</p>
+                </div>
+                <div class="card" style="border-top-color: var(--info);">
+                    <h4>6. Handler Responsibility</h4>
+                    <p>הנוהג אחראי אישית על מצבו של הכלב: Health, Hunger, Thirst, Training, ו-Care כללי.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAY 2 -->
+        <section id="day2">
+            <h2>DAY 2 — K9 Academy Class</h2>
+            <div class="alert alert-info">
+                <strong>מטרת היום:</strong> שיעור קבוצתי מרוכז בו מוסברים עקרונות העבודה עם ה-K9 בפועל לכלל המועמדים. הסגל מדגים על כלב אחד, והמועמדים צופים ולומדים (אין תרגול אישי ביום זה).
+            </div>
+
+            <h3>PART A — K9 System Introduction</h3>
+            <p>הסגל יעבור ביסודיות על ה-Stats של ה-K9 (Health, Hunger, Thirst, Stamina, Smell, Attack, Defense) והאחריות הבלעדית של ה-Handler לתחזק אותם בשוטף על מנת לשמור על הכלב בכושר מבצעי מלא.</p>
+
+            <h3>PART B — Training System (מערך האימונים)</h3>
+            <p>המדריך ידגים כיצד פועלות מערכות האימון לשדרוג ה-Stats:</p>
+            <ul>
+                <li><strong>Defense Training:</strong> ה-Handler מחבר את ה-K9 למתקן אימון דמוי כלוב. ה-K9 עובר באופן עצמאי בין 4 נקודות. הנוהג רק מחבר את הכלב למתקן ואינו צריך ללכת איתו או להוביל אותו.</li>
+                <li><strong>Attack Training:</strong> קיימות 5 מטרות/דמויות אימון. המועמד מפעיל את התקיפה באמצעות <span class="cmd">E</span> כאשר מופיעה האפשרות, ועוברים על כל 5 המטרות.</li>
+                <li><strong>Stamina Training:</strong> המועמד וה-K9 עוברים בין נקודות מסומנות. בכל נקודה לוחצים <span class="cmd">E</span> וממשיכים לנקודה הבאה.</li>
+                <li><strong>Smell Training:</strong> מתבצע באזור החול של מתחם האימונים. מטמינים פריט מתאים (לדוגמה Weed), ולאחר ההטמנה משתמשים ב-<span class="cmd">H</span> כדי להפעיל את החיפוש.</li>
+            </ul>
+
+            <h3>PART C — K9 Commands</h3>
+            <p>הצגה והדגמה של הפקודות המובנות במערכת (וכן Voice Commands מקבילות בלבד):</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>Movement & Obedience</h4>
+                    <p>Sit, Lay Down, Follow, Lead, Side-by-Side, Come, Go There, Jump, Bark, Attention.</p>
+                </div>
+                <div class="card">
+                    <h4>Search</h4>
+                    <p>Search Area, Search Person, Search Car.</p>
+                </div>
+                <div class="card">
+                    <h4>Combat</h4>
+                    <p>Attack, Tackle, Aggressive. <em>כאשר K9 תוקף אדם, ניתן לעצור את התקיפה באמצעות E.</em></p>
+                </div>
+                <div class="card">
+                    <h4>Leash (רצועה)</h4>
+                    <p>ניתן לכוון את אורך הרצועה בטווח של 2–10 יחידות. שימוש ב-Numpad 8 (הארכה) / Numpad 2 (קיצור). קיימת רצועה ויזואלית והכלב עוקב אחרי ה-Handler.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top:2rem;">PART D — Correct Use (שימוש נכון והנחיות עבודה)</h3>
+            <div class="alert alert-info">
+                <strong>הנחיות לפונקציות חיפוש:</strong><br>
+                <ul>
+                    <li><span class="cmd">Search Area</span> — פונקציה המשמשת לחיפוש אדם באזור מסוים.</li>
+                    <li><span class="cmd">Search Person</span> — פונקציה לחיפוש אדם באזור. במהלך ההכשרה יש לתת עדיפות לחיפוש באזור כאשר מדובר באיתור אדם, מכיוון שהוא עובד בצורה טובה יותר. <em>הערה: פקודת ה-Voice Command לחיפוש אדם אינה עובדת ולכן יש להשתמש בפונקציה הזמינה דרך המערכת/תפריט.</em></li>
+                    <li><span class="cmd">Search Car</span> — פונקציה המיועדת לחיפוש רכב.</li>
+                </ul>
+            </div>
+            <div class="alert alert-warning">
+                <strong>הנחיית שימוש בכוח:</strong><br>
+                במסגרת ההכשרה אנו מעדיפים להשתמש ב-<span class="cmd">Tackle</span> כאשר המטרה היא לעצור חשוד, משום ש-<span class="cmd">Attack</span> עלול לגרום למוות. חובה להקפיד על 2 דקות צינון (Cooldown) בין Tackle ל-Tackle.
+            </div>
+        </section>
+
+        <!-- DAY 3 -->
+        <section id="day3">
+            <h2>DAY 3 — Practical Training</h2>
+            <div class="alert alert-info">
+                <strong>מטרת היום:</strong> תרגול מעשי. המועמדים מחולקים לקבוצות כאשר הדבר נדרש ויכולים לשמש כ-Decoys אחד עבור השני. 3 אנשי ה-K9 Staff מנהלים את היום.
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h4>1. SEARCH PERSON</h4>
+                    <p><strong>מטרת התרגיל:</strong> תרגול חיפוש אדם באזור.<br>
+                    <strong>Setup:</strong> Trainee ו-2–3 אנשים (שאחד מהם הוא ה-Target).<br>
+                    <strong>שלבי ביצוע:</strong> ה-Handler משתמש ב-Search Person ומזהה את התוצאה. ניתן להעלות את הקושי באמצעות הגדלת מספר האנשים.</p>
+                </div>
+                <div class="card">
+                    <h4>2. VEHICLE SEARCH</h4>
+                    <p><strong>מטרת התרגיל:</strong> תרגול חיפוש ברכבים.<br>
+                    <strong>Setup:</strong> Trainee ו-2–5 רכבים (באחד הרכבים נמצא פריט מתאים לזיהוי).<br>
+                    <strong>שלבי ביצוע:</strong> המועמד אינו יודע באיזה רכב מדובר. הוא צריך לעבור בין הרכבים ולהשתמש ב-Search Car בצורה מסודרת.</p>
+                </div>
+                <div class="card">
+                    <h4>3. CHASE / PURSUIT</h4>
+                    <p><strong>מיקום מומלץ:</strong> Sandy Shores / Grand Senora Desert (אין להשתמש במרכז Los Santos בגלל עומס ותנועה).<br>
+                    <strong>Setup:</strong> Trainee ו-Suspect/Decoy שבורח.<br>
+                    <strong>שלבי ביצוע:</strong> ה-Handler רודף אחריו עם K9 ומשתמש ב-Tackle כאשר התנאים מתאימים (להעדיף Tackle ולא Attack).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- DAY 4 -->
+        <section id="day4">
+            <h2>DAY 4 — MASTER K9 EXAMINATION</h2>
+            <p>יום מבחנים. המועמד אמור לבצע את הדברים בעצמו. המבחן בודק גם את ה-Handler וגם את ה-K9.</p>
+
+            <table style="margin-bottom: 2rem;">
+                <tr>
+                    <th>מבחן</th>
+                    <th>תיאור דרישות הבחינה</th>
+                </tr>
+                <tr>
+                    <td><strong>TEST 1 — STAMINA</strong></td>
+                    <td><strong>מיקום:</strong> Military Base Training Area.<br>
+                        <strong>Setup:</strong> ה-Trainee מפעיל את פקודת Side-by-Side עם ה-K9.<br>
+                        <strong>מהלך המבחן:</strong> ה-Trainee וה-K9 צריכים לעבור יחד בין הקונוסים במסלול האימון, מתחילת המסלול ועד סופו.<br>
+                        <strong>מטרת המבחן:</strong> לבדוק את יכולת ה-Handler לשלוט בתנועה של ה-K9 ולשמור עליו לצד ה-Handler לאורך המסלול (אין צורך להשתמש ב-E או לבצע פעולה נוספת בנקודות המסלול).</td>
+                </tr>
+                <tr>
+                    <td><strong>TEST 2 — OBEDIENCE</strong></td>
+                    <td>הבוחן נותן פקודות באופן אקראי ולא בסדר קבוע (Sit, Lay Down, Follow, Come, Side-by-Side, Go There, Jump, Bark, Attention). המטרה לבדוק שליטה אמיתית ב-K9.</td>
+                </tr>
+                <tr>
+                    <td><strong>TEST 3 — VEHICLE SEARCH</strong></td>
+                    <td><strong>Setup:</strong> 3–5 רכבים (אחד מכיל פריט). המועמד לא יודע איזה רכב. עליו לבצע חיפוש ולזהות את הרכב הנכון.</td>
+                </tr>
+                <tr>
+                    <td><strong>TEST 4 — TARGET ID + TACKLE</strong></td>
+                    <td><strong>Setup:</strong> Examiner, Trainee ו-2–3 Helpers. כל ה-Helpers נמצאים יחד באזור המבחן, כאשר אחד מהם הוא ה-Target.<br>
+                        <strong>מהלך המבחן:</strong> ה-Examiner נותן ל-Trainee תיאור של החשוד שעליו לבצע את הפעולה, לדוגמה: צבע וסוג חולצה, צבע נעליים, מכנסיים, קעקוע או מאפיין חיצוני בולט, או שילוב של מספר מאפיינים. ה-Trainee צריך לזהות בעצמו מי מהאנשים תואם לתיאור שקיבל. לאחר זיהוי ה-Target, ה-Trainee צריך להפעיל את ה-K9 ולבצע Tackle על האדם הנכון.<br>
+                        <strong>מטרת המבחן:</strong> לבדוק שה-Handler מסוגל להקשיב ולזכור תיאור של חשוד, לזהות את האדם הנכון מתוך מספר אנשים, לקבל החלטה נכונה ולבצע Tackle בצורה מבוקרת.<br>
+                        <strong>דגש:</strong> Tackle צריך להתבצע רק לאחר זיהוי נכון של ה-Target. טעות בזיהוי או ביצוע Tackle על אדם שאינו ה-Target נחשבים לכשל במבחן.</td>
+                </tr>
+                <tr>
+                    <td><strong>TEST 5 — FINAL SCENARIO (תרחיש מסכם)</strong></td>
+                    <td><strong>תכנון מול ג'יידן (שקד):</strong> זהו תרגיל מסכם שהמבנה והתרחיש שלו ייקבעו מראש בתיאום עם ג'יידן (שקד), האחראי על ה-K9. מטרת התיאום היא לקבוע את אופן ביצוע הבחינה, מספר המשתתפים, מיקום התרחיש, המידע שיימסר למועמד והיכולות שייבחנו.<br>
+                        <strong>מטרת התרחיש:</strong> לבחון באופן כולל קבלת החלטות עצמאית, שליטה ב-K9, בחירה נכונה של פונקציות, זיהוי וטיפול נכון בחשוד, שימוש נכון ב-Tackle, שמירה על נהלי היחידה, שיקול דעת, עבודת Handler עם ה-K9 והיכולת לשלב את כל הידע שנלמד במהלך האקדמיה.</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Requirements & Certification -->
+        <section id="requirements">
+            <h2>MASTER REQUIREMENTS & CERTIFICATION</h2>
+            
+            <h3>דרישות Master למעבר:</h3>
+            <p>הדרישות המלאות לנתוני ה-K9 לקבלת הסמכה:</p>
+            <ul>
+                <li>Defense — <strong>100/100</strong></li>
+                <li>Stamina — <strong>100/100</strong></li>
+                <li>Attack — <strong>100/100</strong></li>
+                <li>Smell — <strong>100/100</strong></li>
+            </ul>
+
+            <h3 style="margin-top: 2rem;">סטטוס הסמכה (Certification)</h3>
+            <div class="cards-grid">
+                <div class="card" style="text-align: center; border-color: var(--success);">
+                    <h4 style="color: var(--success);">PASSED</h4>
+                    <p>המועמד עמד בדרישות וזכאי לתואר<br><strong>K9 Handler Certified</strong></p>
+                </div>
+                <div class="card" style="text-align: center; border-color: var(--warning);">
+                    <h4 style="color: var(--warning);">RETEST</h4>
+                    <p>המועמד צריך לחזור על חלק מסוים במבחן.</p>
+                </div>
+                <div class="card" style="text-align: center; border-color: var(--danger);">
+                    <h4 style="color: var(--danger);">FAILED</h4>
+                    <p>המועמד לא עמד בדרישות הכלליות או נכשל בנהלים.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Reference -->
+        <section id="quick-reference" class="qr-section">
+            <h2>נספח — Quick Reference (לשימוש מהיר)</h2>
+            <p>דף ריכוז נתונים מהיר לשימוש בזמן RP:</p>
+            
+            <div class="qr-grid">
+                <div>
+                    <h3>Commands & Functions</h3>
+                    <ul>
+                        <li><span class="cmd">Movement / Obedience:</span> Sit, Lay Down, Follow, Lead, Side-by-Side, Come, Go There, Jump, Bark, Attention.</li>
+                        <li><span class="cmd">Search:</span> Search Area (אדם באזור), Search Person (חיפוש אדם דרך התפריט), Search Car (חיפוש רכב).</li>
+                        <li><span class="cmd">Combat:</span> Attack, Tackle, Aggressive. <em>(לחיצה על E לעצירת תקיפה)</em>.</li>
+                        <li><span class="cmd">Leash:</span> Numpad 8 (הארכה) / Numpad 2 (קיצור). טווח: 2–10 יחידות.</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3>Critical Rules</h3>
+                    <ul>
+                        <li><span class="badge badge-warning">Tackle Cooldown:</span> לפחות <strong>2 דקות</strong> בין Tackle ל-Tackle.</li>
+                        <li><span class="badge badge-danger">Use of Force:</span> עדיפות ל-Tackle לעצירת חשוד (Attack עלול לגרום למוות).</li>
+                        <li><span class="badge badge-info">Search Person Note:</span> פקודת Voice Command לחיפוש אדם אינה עובדת - יש להשתמש דרך המערכת/תפריט.</li>
+                        <li><strong>Search Without Reasonable Suspicion:</strong> אסור לבצע חיפוש ללא בסיס RP/חוקי.</li>
+                        <li><strong>No Abandoning / No Petting:</strong> אין לנטוש את הכלב ואין לאפשר לאחרים ללטף אותו.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Training Types</h3>
+                    <ul>
+                        <li><strong>Defense:</strong> חיבור למתקן כלוב (4 נקודות עצמאיות).</li>
+                        <li><strong>Attack:</strong> 5 מטרות אימון, הפעלה עם E.</li>
+                        <li><strong>Stamina:</strong> מעבר בנקודות מסומנות ולחיצה על E.</li>
+                        <li><strong>Smell:</strong> הטמנת פריט בחול (לדוגמה Weed) והפעלת חיפוש עם H.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Master Requirements</h3>
+                    <ul>
+                        <li>Defense — 100/100</li>
+                        <li>Stamina — 100/100</li>
+                        <li>Attack — 100/100</li>
+                        <li>Smell — 100/100</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interview Questions Repository -->
+        <section id="interview-repository">
+            <h2>📋 מאגר שאלות הראיון</h2>
+            <p>מאגר שאלות מלא ומקיף המיועד לצוות הסגל (K9 Staff) במהלך יום הראיונות והמיון (Day 1). השאלות מסודרות וממוספרות באופן רציף (1–35) ומחולקות לפי קטגוריות הערכה.</p>
+
+            <h3 style="margin-top: 2rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 0.3rem;">קטגוריה 1: מוטיבציה</h3>
+            <div style="margin-top: 1rem;">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>למה אתה מעוניין להצטרף דווקא ליחידת ה-K9 של משטרת לוס סנטוס?</span>
+                        <span class="question-num">שאלה 1</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מה הניסיון הקודם שלך בתפקידי סיור/שיטור, וכיצד הוא יסייע לך כ-K9 Handler?</span>
+                        <span class="question-num">שאלה 2</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>באילו מצבים לדעתך K9 יכול לתת יתרון משמעותי לכוחות המשטרה בשטח, ומדוע?</span>
+                        <span class="question-num">שאלה 3</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>אילו תכונות והרגלים אתה חושב שעליך לפתח כדי להיות Handler טוב ומקצועי לאורך זמן?</span>
+                        <span class="question-num">שאלה 4</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מה הציפיות שלך מההכשרה באקדמיית ה-K9 ומצוות הסגל?</span>
+                        <span class="question-num">שאלה 5</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מה מייחד אותך כמועמד מתאים לתפקיד הנוהג מבין שאר המועמדים?</span>
+                        <span class="question-num">שאלה 6</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>האם אתה מוכן להשקיע את הזמן הנדרש בטיפול, אימון ותחזוקת ה-Stats של הכלב בשוטף?</span>
+                        <span class="question-num">שאלה 7</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2.5rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 0.3rem;">קטגוריה 2: תפקיד ואחריות</h3>
+            <div style="margin-top: 1rem;">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מהי תפיסת התפקיד של K9 Handler בעיניך?</span>
+                        <span class="question-num">שאלה 8</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>ה-K9 מוגדר ככלי מסייע ולא כנשק עיקרי. מה המשמעות של היגוי זה עבורך?</span>
+                        <span class="question-num">שאלה 9</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מהי אחריות ה-Handler לגבי מדדי הבריאות והרווחה של הכלב (Health, Hunger, Thirst)?</span>
+                        <span class="question-num">שאלה 10</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>כיצד תשמור על כושר מבצעי מלא של הכלב (Stamina, Attack, Defense, Smell)?</span>
+                        <span class="question-num">שאלה 11</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מהי האחריות שלך כ-Handler לשמירה על ה-K9 במהלך פעילות מבצעית?</span>
+                        <span class="question-num">שאלה 12</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מה עליך לבדוק ולבצע עם ה-K9 לאחר סיום פעילות או משמרת?</span>
+                        <span class="question-num">שאלה 13</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מי נושא באחריות המלאה במקרה של נזק או פגיעה שנגרמו על ידי ה-K9?</span>
+                        <span class="question-num">שאלה 14</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2.5rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 0.3rem;">קטגוריה 3: חוקים ושיקול דעת</h3>
+            <div style="margin-top: 1rem;">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מהו הכלל לגבי חיפוש (Search) באמצעות K9 ללא חשד סביר (Reasonable Suspicion)?</span>
+                        <span class="question-num">שאלה 15</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מהו נוהל Tackle Cooldown ומה הפרש הזמן הנדרש בין ביצוע Tackle אחד לבא אחריו?</span>
+                        <span class="question-num">שאלה 16</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מהי המדיניות לגבי ליטוף ה-K9 (No Petting) על ידי אזרחים או שוטרים אחרים?</span>
+                        <span class="question-num">שאלה 17</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מתי מותר ומתי אסור לנטוש/להשאיר K9 ללא השגחה (Abandoning the K9)?</span>
+                        <span class="question-num">שאלה 18</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מה ההבדל המבצעי בין שימוש ב-Tackle לבין שימוש ב-Attack לעצירת חשוד?</span>
+                        <span class="question-num">שאלה 19</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>באיזו פונקציה תשתמש כדי לחפש אדם הנמצא באזור מסוים, וכיצד היא מסייעת לך באיתורו?</span>
+                        <span class="question-num">שאלה 20</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>אתה צריך לאתר אדם באזור מסוים, אך אינך יודע בדיוק היכן הוא נמצא. כיצד תשתמש ב-K9 כדי לבצע את החיפוש בצורה יעילה?</span>
+                        <span class="question-num">שאלה 21</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2.5rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 0.3rem;">קטגוריה 4: מצבים</h3>
+            <div style="margin-top: 1rem;">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: אתה בסיור וזיהית אזרח חשוד, אך אין לך חשד סביר מבוסס. האם תשתמש ב-K9 לביצוע Search Person? נמק.</span>
+                        <span class="question-num">שאלה 22</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: חשוד נמלט ברגל באזור סנדי שורס. מתי תבחר להפעיל Tackle ומתי Attack?</span>
+                        <span class="question-num">שאלה 23</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: ביצעת Tackle מוצלח על חשוד נמלט. כעבור 30 שניות מופיע חשוד נוסף ובורח. כיצד תפעל?</span>
+                        <span class="question-num">שאלה 24</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: ה-K9 נפגע במהלך אירוע ירי וה-Health שלו ירד משמעותית. מהי שרשרת הפעולות שלך?</span>
+                        <span class="question-num">שאלה 25</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: שוטר יחידה אחרת מבקש ממך לקחת את ה-K9 לסיור קצר ללא נוכחותך. כיצד תגיב?</span>
+                        <span class="question-num">שאלה 26</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: אזרח מתקרב בנחמדות ומושיט יד ללטף את ה-K9 בזמן שאתה מעכב חשוד. מה תעשה?</span>
+                        <span class="question-num">שאלה 27</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: אתה נדרש לסרוק מספר רכבים בחניה חשודה. כיצד תבצע את סריקת ה-Search Car בצורה מסודרת?</span>
+                        <span class="question-num">שאלה 28</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2.5rem; border-bottom: 2px solid var(--accent-color); padding-bottom: 0.3rem;">קטגוריה 5: חשיבה וקבלת החלטות</h3>
+            <div style="margin-top: 1rem;">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>תרחיש: במהלך מרדף ה-K9 אינו מגיב לפקודה שנתת. מה תעשה כדי לשמור על שליטה במצב ולהמשיך את האירוע בצורה נכונה?</span>
+                        <span class="question-num">שאלה 29</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>כיצד תאזן בין שמירה על נהלי היחידה לבין הצורך המבצעי לעצור חשוד מסוכן?</span>
+                        <span class="question-num">שאלה 30</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>אם הבוחן/מפקד מעיר לך במהלך תרגיל על שיקול דעת שגוי, כיצד תגיב ותפעל?</span>
+                        <span class="question-num">שאלה 31</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מהי החשיבות של עבודת צוות בין ה-Handler לבין שאר כוחות הסיור בשטח?</span>
+                        <span class="question-num">שאלה 32</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>כיצד תפעל אם תזהה נוהג (Handler) אחר ביחידה שמפר את אחד מחוקי הברזל (כגון Tackle Cooldown)?</span>
+                        <span class="question-num">שאלה 33</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>מתי תבחר לנתק/לחבר את הרצועה (Leash) מול חשוד, וכיצד תבחר את אורך הרצועה (2–10)?</span>
+                        <span class="question-num">שאלה 34</span>
+                    </div>
+                </div>
+                <div class="question-card">
+                    <div class="question-header">
+                        <span>לסיכום, מדוע לדעתך אתה ראוי לקבל את התואר K9 Handler Certified ולהצטרף ליחידה?</span>
+                        <span class="question-num">שאלה 35</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
